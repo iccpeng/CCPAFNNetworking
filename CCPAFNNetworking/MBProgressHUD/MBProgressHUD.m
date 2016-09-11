@@ -64,27 +64,55 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
  */
 + (void) dissmiss {
     
-    [self hideHUDForView:nil animated:YES];
+    UIView * view = (UIView*)[[[UIApplication sharedApplication]delegate]window];
+    
+    [self hideHUDForView:view animated:YES];
     
 }
 
 /**
- *  显示 HUD
+ *  显示 HUD 
  */
 
-+ (instancetype) showHUD {
++ (instancetype) showHUDWithImageArr:(NSMutableArray *)imageArr andShowView:(UIView *)showView{
     
-    return [self showHUDAddedTo:nil animated:YES];
+    
+//  UIView *view  = [[UIApplication sharedApplication].delegate window];
+
+    if (imageArr == nil) {
+        
+         return [self showHUDAddedTo:showView animated:YES];
+        
+    } else {
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:showView animated:YES];
+        
+        hud.mode = MBProgressHUDModeCustomView;
+        
+        UIImageView *imaegCustomView = [[UIImageView alloc] init];
+        imaegCustomView.animationImages = imageArr;
+        [imaegCustomView setAnimationRepeatCount:0];
+        [imaegCustomView setAnimationDuration:(imageArr.count + 1) * 0.075];
+        [imaegCustomView startAnimating];
+        
+        hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+        
+        hud.bezelView.color = [UIColor clearColor];
+        
+        hud.customView = imaegCustomView;
+        
+        hud.square = NO;
+
+//        [hud hideAnimated:YES afterDelay:10.f];
+        
+        return hud;
+        
+    }
 }
-
-
 
 
 + (instancetype)showHUDAddedTo:(UIView *)view animated:(BOOL)animated {
     
-    if (view==nil) {
-        view = (UIView*)[[[UIApplication sharedApplication]delegate]window];
-    }
     MBProgressHUD *hud = [[self alloc] initWithView:view];
     hud.removeFromSuperViewOnHide = YES;
     [view addSubview:hud];
@@ -93,10 +121,6 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 }
 
 + (BOOL)hideHUDForView:(UIView *)view animated:(BOOL)animated {
-    
-    if (view==nil) {
-        view = (UIView*)[[[UIApplication sharedApplication]delegate]window];
-    }
     
     MBProgressHUD *hud = [self HUDForView:view];
     if (hud != nil) {

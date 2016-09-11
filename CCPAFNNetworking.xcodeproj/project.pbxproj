@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		21E0CF241D8283E500A60FA6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E0CF231D8283E500A60FA6 /* main.m */; };
 		21E0CF271D8283E500A60FA6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E0CF261D8283E500A60FA6 /* AppDelegate.m */; };
-		21E0CF2A1D8283E500A60FA6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E0CF291D8283E500A60FA6 /* ViewController.m */; };
-		21E0CF2D1D8283E500A60FA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21E0CF2B1D8283E500A60FA6 /* Main.storyboard */; };
 		21E0CF2F1D8283E500A60FA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21E0CF2E1D8283E500A60FA6 /* Assets.xcassets */; };
 		21E0CF321D8283E500A60FA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21E0CF301D8283E500A60FA6 /* LaunchScreen.storyboard */; };
 		21E0CF3D1D8283E500A60FA6 /* CCPAFNNetworkingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E0CF3C1D8283E500A60FA6 /* CCPAFNNetworkingTests.m */; };
@@ -36,6 +34,7 @@
 		21E0CF921D8287D300A60FA6 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E0CF811D8287D300A60FA6 /* UIWebView+AFNetworking.m */; };
 		21E0CF961D82884700A60FA6 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E0CF951D82884700A60FA6 /* MBProgressHUD.m */; };
 		21E0CF991D82889B00A60FA6 /* MBProgressHUD+ADD.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E0CF981D82889B00A60FA6 /* MBProgressHUD+ADD.m */; };
+		7E26CC811D846C550038186B /* CCPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26CC801D846C550038186B /* CCPViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,9 +59,6 @@
 		21E0CF231D8283E500A60FA6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		21E0CF251D8283E500A60FA6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		21E0CF261D8283E500A60FA6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		21E0CF281D8283E500A60FA6 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		21E0CF291D8283E500A60FA6 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		21E0CF2C1D8283E500A60FA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		21E0CF2E1D8283E500A60FA6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21E0CF311D8283E500A60FA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		21E0CF331D8283E500A60FA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -115,6 +111,8 @@
 		21E0CF951D82884700A60FA6 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		21E0CF971D82889B00A60FA6 /* MBProgressHUD+ADD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+ADD.h"; sourceTree = "<group>"; };
 		21E0CF981D82889B00A60FA6 /* MBProgressHUD+ADD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+ADD.m"; sourceTree = "<group>"; };
+		7E26CC7F1D846C550038186B /* CCPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPViewController.h; sourceTree = "<group>"; };
+		7E26CC801D846C550038186B /* CCPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,9 +168,8 @@
 				21E0CF551D82857A00A60FA6 /* CCPNetworking */,
 				21E0CF251D8283E500A60FA6 /* AppDelegate.h */,
 				21E0CF261D8283E500A60FA6 /* AppDelegate.m */,
-				21E0CF281D8283E500A60FA6 /* ViewController.h */,
-				21E0CF291D8283E500A60FA6 /* ViewController.m */,
-				21E0CF2B1D8283E500A60FA6 /* Main.storyboard */,
+				7E26CC7F1D846C550038186B /* CCPViewController.h */,
+				7E26CC801D846C550038186B /* CCPViewController.m */,
 				21E0CF2E1D8283E500A60FA6 /* Assets.xcassets */,
 				21E0CF301D8283E500A60FA6 /* LaunchScreen.storyboard */,
 				21E0CF331D8283E500A60FA6 /* Info.plist */,
@@ -354,6 +351,7 @@
 				TargetAttributes = {
 					21E0CF1E1D8283E500A60FA6 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 5HARV582JG;
 					};
 					21E0CF371D8283E500A60FA6 = {
 						CreatedOnToolsVersion = 7.2;
@@ -393,7 +391,6 @@
 				21E0CF321D8283E500A60FA6 /* LaunchScreen.storyboard in Resources */,
 				21E0CF2F1D8283E500A60FA6 /* Assets.xcassets in Resources */,
 				21E0CF881D8287D300A60FA6 /* LICENSE in Resources */,
-				21E0CF2D1D8283E500A60FA6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,7 +420,6 @@
 				21E0CF911D8287D300A60FA6 /* UIRefreshControl+AFNetworking.m in Sources */,
 				21E0CF851D8287D300A60FA6 /* AFURLRequestSerialization.m in Sources */,
 				21E0CF5A1D82857A00A60FA6 /* CCPNetworking.m in Sources */,
-				21E0CF2A1D8283E500A60FA6 /* ViewController.m in Sources */,
 				21E0CF271D8283E500A60FA6 /* AppDelegate.m in Sources */,
 				21E0CF871D8287D300A60FA6 /* AFURLSessionManager.m in Sources */,
 				21E0CF861D8287D300A60FA6 /* AFURLResponseSerialization.m in Sources */,
@@ -432,6 +428,7 @@
 				21E0CF831D8287D300A60FA6 /* AFNetworkReachabilityManager.m in Sources */,
 				21E0CF8A1D8287D300A60FA6 /* AFAutoPurgingImageCache.m in Sources */,
 				21E0CF841D8287D300A60FA6 /* AFSecurityPolicy.m in Sources */,
+				7E26CC811D846C550038186B /* CCPViewController.m in Sources */,
 				21E0CF821D8287D300A60FA6 /* AFHTTPSessionManager.m in Sources */,
 				21E0CF961D82884700A60FA6 /* MBProgressHUD.m in Sources */,
 				21E0CF991D82889B00A60FA6 /* MBProgressHUD+ADD.m in Sources */,
@@ -476,14 +473,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		21E0CF2B1D8283E500A60FA6 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				21E0CF2C1D8283E500A60FA6 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		21E0CF301D8283E500A60FA6 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -579,7 +568,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = CCPAFNNetworking/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CCP.CCPAFNNetworking;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -590,7 +581,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = CCPAFNNetworking/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CCP.CCPAFNNetworking;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -664,6 +657,7 @@
 				21E0CF4E1D8283E500A60FA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		21E0CF4F1D8283E500A60FA6 /* Build configuration list for PBXNativeTarget "CCPAFNNetworkingTests" */ = {
 			isa = XCConfigurationList;
@@ -672,6 +666,7 @@
 				21E0CF511D8283E500A60FA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		21E0CF521D8283E500A60FA6 /* Build configuration list for PBXNativeTarget "CCPAFNNetworkingUITests" */ = {
 			isa = XCConfigurationList;
@@ -680,6 +675,7 @@
 				21E0CF541D8283E500A60FA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

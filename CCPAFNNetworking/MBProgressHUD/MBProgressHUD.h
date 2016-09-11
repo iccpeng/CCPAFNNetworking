@@ -94,11 +94,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (void) dissmiss;
 
 /**
- *  显示 HUD
+ *  显示 HUD 
+ *  
+ *  iamgeArr 为 loading 图片数组，如果为nil 则为默认的loading样式
  */
-
-+ (instancetype) showHUD;
-
++ (instancetype) showHUDWithImageArr:(NSMutableArray *)imageArr andShowView:(UIView *)showView;
 
 /**
  * Creates a new HUD, adds it to provided view and shows it. The counterpart to this method is hideHUDForView:animated:.

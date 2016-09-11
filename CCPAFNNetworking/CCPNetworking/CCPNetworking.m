@@ -10,8 +10,7 @@
 #import "AFNetworking.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "MBProgressHUD.h"
-#import "MBProgressHUD+Add.h"
-
+#import "MBProgressHUD+ADD.h"
 
 #ifdef DEBUG
 #   define CCPLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
@@ -43,29 +42,22 @@ static NSMutableArray *tasks;
 }
 
 
-+(CCPURLSessionTask *)getOrPostWithType:(httpMethod)httpMethod   WithUrl:(NSString *)url
-                                 params:(NSDictionary *)params
-                                success:(CCPResponseSuccess)success
-                                   fail:(CCPResponseFail)fail
-                                showHUD:(BOOL)showHUD {
++(CCPURLSessionTask *)getOrPostWithType:(httpMethod)httpMethod   WithUrl:(NSString *)url params:(NSDictionary *)params loadingImageArr:(NSMutableArray *)loadingImageArr  toShowView:(UIView *)showView success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD{
     
-    
-    return [self baseRequestType:httpMethod url:url params:params success:success fail:fail showHUD:showHUD];
+    return [self baseRequestType:httpMethod url:url params:params loadingImageArr:loadingImageArr toShowView:showView success:success fail:fail showHUD:showHUD];
     
 }
 
-+ (CCPURLSessionTask *)baseRequestType:(httpMethod)type
-                                   url:(NSString *)url
-                                params:(NSDictionary *)params
-                               success:(CCPResponseSuccess)success
-                                  fail:(CCPResponseFail)fail
-                               showHUD:(BOOL)showHUD{
++ (CCPURLSessionTask *)baseRequestType:(httpMethod)type url:(NSString *)url params:(NSDictionary *)params  loadingImageArr:(NSMutableArray *)loadingImageArr  toShowView:(UIView *)showView success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD {
+   
     if (url==nil) {
+       
         return nil;
     }
     
-    if (showHUD==YES) {
-//        [MBProgressHUD showHUD];
+    if (showHUD == YES) {
+        
+       [MBProgressHUD showHUDWithImageArr:loadingImageArr andShowView:showView];
     }
     
     //检查地址中是否有中文
@@ -80,7 +72,6 @@ static NSMutableArray *tasks;
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
-            
             if (success) {
                 
                 success(responseObject);
@@ -90,7 +81,7 @@ static NSMutableArray *tasks;
             
             if (showHUD==YES) {
                 
-//                [MBProgressHUD dissmiss];
+                [MBProgressHUD dissmiss];
             }
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -102,7 +93,9 @@ static NSMutableArray *tasks;
             [[self tasks] removeObject:sessionTask];
             
             if (showHUD==YES) {
-//                [MBProgressHUD dissmiss];
+               
+                [MBProgressHUD dissmiss];
+                
             }
             
         }];
@@ -120,6 +113,8 @@ static NSMutableArray *tasks;
             [[self tasks] removeObject:sessionTask];
             
             if (showHUD==YES) {
+                
+//                [MBProgressHUD dissmiss];
             
             }
             
@@ -139,7 +134,7 @@ static NSMutableArray *tasks;
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         
-//                        [MBProgressHUD dissmiss];
+                        [MBProgressHUD dissmiss];
                     });
                 });
                 
@@ -158,14 +153,7 @@ static NSMutableArray *tasks;
 }
 
 
-
-
-+ (CCPURLSessionTask *)downloadWithUrl:(NSString *)url
-                            saveToPath:(NSString *)saveToPath
-                              progress:(CCPDownloadProgress)progressBlock
-                               success:(CCPResponseSuccess)success
-                               failure:(CCPResponseFail)fail
-                               showHUD:(BOOL)showHUD{
++ (CCPURLSessionTask *)uploadWithImages:(NSArray *)imageArr url:(NSString *)url filename:(NSString *)filename names:(NSArray *)nameArr params:(NSDictionary *)params loadingImageArr:(NSMutableArray *)loadingImageArr progress:(CCPUploadProgress)progress success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD {
     
     
     if (url==nil) {
@@ -173,7 +161,91 @@ static NSMutableArray *tasks;
     }
     
     if (showHUD==YES) {
-//        [MBProgressHUD showHUD];
+        //        [MBProgressHUD showHUD];
+    }
+    
+    //检查地址中是否有中文
+    NSString *urlStr=[NSURL URLWithString:url]?url:[self strUTF8Encoding:url];
+    
+    AFHTTPSessionManager *manager=[self getAFManager];
+    
+    CCPURLSessionTask *sessionTask = [manager POST:urlStr parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
+        for (int i = 0; i < imageArr.count; i ++) {
+            
+            UIImage *image = (UIImage *)imageArr[i];
+            
+            NSData *imageData = UIImageJPEGRepresentation(image,1.0);
+            
+            NSString *imageFileName = filename;
+            if (filename == nil || ![filename isKindOfClass:[NSString class]] || filename.length == 0) {
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                formatter.dateFormat = @"yyyyMMddHHmmss";
+                NSString *str = [formatter stringFromDate:[NSDate date]];
+                imageFileName = [NSString stringWithFormat:@"%@.png", str];
+            }
+            
+            NSString *nameString = (NSString *)nameArr[i];
+            
+            [formData appendPartWithFileData:imageData name:nameString fileName:imageFileName mimeType:@"image/jpg"];
+            
+        }
+        
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+        CCPLog(@"上传进度--%lld,总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
+        
+        if (progress) {
+            
+            progress(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
+            
+        }
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        if (success) {
+            success(responseObject);
+        }
+        
+        [[self tasks] removeObject:sessionTask];
+        
+        if (showHUD==YES) {
+            //            [MBProgressHUD dissmiss];
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        if (fail) {
+            fail(error);
+        }
+        
+        [[self tasks] removeObject:sessionTask];
+        
+        if (showHUD==YES) {
+            //            [MBProgressHUD dissmiss];
+        }
+        
+    }];
+    
+    if (sessionTask) {
+        [[self tasks] addObject:sessionTask];
+    }
+    
+    return sessionTask;
+    
+}
+
+
+
+
++ (CCPURLSessionTask *)downloadWithUrl:(NSString *)url saveToPath:(NSString *)saveToPath loadingImageArr:(NSMutableArray *)loadingImageArr progress:(CCPDownloadProgress )progressBlock  success:(CCPResponseSuccess )success failure:(CCPResponseFail )fail showHUD:(BOOL)showHUD{
+    
+    if (url==nil) {
+        return nil;
+    }
+    
+    if (showHUD==YES) {
+        
+//        [MBProgressHUD showHUDWithImageArr:loadingImageArr];
     }
     
     NSURLRequest *downloadRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
@@ -182,10 +254,13 @@ static NSMutableArray *tasks;
     CCPURLSessionTask *sessionTask = nil;
     
     sessionTask = [manager downloadTaskWithRequest:downloadRequest progress:^(NSProgress * _Nonnull downloadProgress) {
-//        CCPLog(@"下载进度--%.1f",1.0 * downloadProgress.completedUnitCount/downloadProgress.totalUnitCount);
+       
+        CCPLog(@"下载进度--%.1f",1.0 * downloadProgress.completedUnitCount/downloadProgress.totalUnitCount);
+        
         //回到主线程刷新UI
         dispatch_async(dispatch_get_main_queue(), ^{
             if (progressBlock) {
+                
                 progressBlock(downloadProgress.completedUnitCount, downloadProgress.totalUnitCount);
             }
         });
@@ -194,7 +269,9 @@ static NSMutableArray *tasks;
         if (!saveToPath) {
             
             NSURL *downloadURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-//            CCPLog(@"默认路径--%@",downloadURL);
+            
+            CCPLog(@"默认路径--%@",downloadURL);
+            
             return [downloadURL URLByAppendingPathComponent:[response suggestedFilename]];
             
         }else{
@@ -207,18 +284,23 @@ static NSMutableArray *tasks;
         [[self tasks] removeObject:sessionTask];
         
         if (error == nil) {
+           
             if (success) {
                 success([filePath path]);//返回完整路径
             }
             
         } else {
+            
             if (fail) {
+                
                 fail(error);
+                
             }
         }
         
         if (showHUD==YES) {
-//            [MBProgressHUD dissmiss];
+            
+            [MBProgressHUD dissmiss];
         }
         
     }];
@@ -226,7 +308,9 @@ static NSMutableArray *tasks;
     //开始启动任务
     [sessionTask resume];
     if (sessionTask) {
+        
         [[self tasks] addObject:sessionTask];
+        
     }
     
     return sessionTask;
@@ -237,9 +321,9 @@ static NSMutableArray *tasks;
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
     AFHTTPSessionManager *manager  = [AFHTTPSessionManager manager];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];//设置返回数据为json
+//    manager.responseSerializer = [AFJSONResponseSerializer serializer];//设置返回数据为json
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];// 请求
-//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];//设置返回NSData 数据
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];//设置返回NSData 数据
     
     manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
     manager.requestSerializer.timeoutInterval= 60;
@@ -340,94 +424,7 @@ static NSMutableArray *tasks;
 }
 
 
-+ (CCPURLSessionTask *)uploadWithImages:(NSArray *)imageArr
-                                    url:(NSString *)url
-                               filename:(NSString *)filename
-                                  names:(NSArray *)nameArr
-                                 params:(NSDictionary *)params
-                               progress:(CCPUploadProgress)progress
-                                success:(CCPResponseSuccess)success
-                                   fail:(CCPResponseFail)fail
-                                showHUD:(BOOL)showHUD {
-    
-    
-    if (url==nil) {
-        return nil;
-    }
-    
-    if (showHUD==YES) {
-//        [MBProgressHUD showHUD];
-    }
-    
-    //检查地址中是否有中文
-    NSString *urlStr=[NSURL URLWithString:url]?url:[self strUTF8Encoding:url];
-    
-    AFHTTPSessionManager *manager=[self getAFManager];
-    
-    CCPURLSessionTask *sessionTask = [manager POST:urlStr parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        
-        for (int i = 0; i < imageArr.count; i ++) {
-            
-            UIImage *image = (UIImage *)imageArr[i];
-            
-            NSData *imageData = UIImageJPEGRepresentation(image,1.0);
-            
-            NSString *imageFileName = filename;
-            if (filename == nil || ![filename isKindOfClass:[NSString class]] || filename.length == 0) {
-                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                formatter.dateFormat = @"yyyyMMddHHmmss";
-                NSString *str = [formatter stringFromDate:[NSDate date]];
-                imageFileName = [NSString stringWithFormat:@"%@.png", str];
-            }
-            
-            NSString *nameString = (NSString *)nameArr[i];
 
-            [formData appendPartWithFileData:imageData name:nameString fileName:imageFileName mimeType:@"image/jpg"];
-            
-        }
-        
-    } progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-        CCPLog(@"上传进度--%lld,总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
-        
-        if (progress) {
-            
-            progress(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
-            
-        }
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        if (success) {
-            success(responseObject);
-        }
-        
-        [[self tasks] removeObject:sessionTask];
-        
-        if (showHUD==YES) {
-//            [MBProgressHUD dissmiss];
-        }
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-       
-        if (fail) {
-            fail(error);
-        }
-        
-        [[self tasks] removeObject:sessionTask];
-        
-        if (showHUD==YES) {
-//            [MBProgressHUD dissmiss];
-        }
-        
-    }];
-    
-    if (sessionTask) {
-        [[self tasks] addObject:sessionTask];
-    }
-    
-    return sessionTask;
-    
-}
 
 
 - (void)dealloc

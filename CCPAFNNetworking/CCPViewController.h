@@ -1,15 +1,13 @@
 //
-//  ViewController.h
+//  CCPViewController.h
 //  CCPAFNNetworking
 //
-//  Created by DR on 16/9/9.
+//  Created by C CP on 16/9/11.
 //  Copyright © 2016年 CCP. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface CCPViewController : UIViewController
 
 @end
-

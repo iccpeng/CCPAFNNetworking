@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "CCPViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,6 +17,14 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+   CCPViewController *VC = [[CCPViewController alloc] init];
+   VC.view.backgroundColor = [UIColor whiteColor];
+   self.window.rootViewController = VC;
+    
+   [self.window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;
 }

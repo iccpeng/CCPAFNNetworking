@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Reachability.h"
+#import <UIKit/UIKit.h>
 
 /**
  *  手机网络状态
@@ -78,15 +79,14 @@ typedef NSURLSessionTask CCPURLSessionTask;
  *  @param httpMethod  网络请求类型
  *  @param url     请求连接，根路径
  *  @param params  参数字典
+ *  @param loadingImageArr  loading图片数组
  *  @param success 请求成功返回数据
  *  @param fail    请求失败
  *  @param showHUD 是否显示HUD
  */
-+(CCPURLSessionTask *)getOrPostWithType:(httpMethod)httpMethod   WithUrl:(NSString *)url
-                           params:(NSDictionary *)params
-                          success:(CCPResponseSuccess)success
-                             fail:(CCPResponseFail)fail
-                          showHUD:(BOOL)showHUD;
+
+
++(CCPURLSessionTask *)getOrPostWithType:(httpMethod)httpMethod   WithUrl:(NSString *)url params:(NSDictionary *)params loadingImageArr:(NSMutableArray *)loadingImageArr  toShowView:(UIView *)showView success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD;
 
 /**
  *  上传图片方法 支持多张上传和单张上传
@@ -95,21 +95,14 @@ typedef NSURLSessionTask CCPURLSessionTask;
  *  @param filename   图片的名称(如果不传则以当前时间命名)
  *  @param names      上传图片时参数数组 <后台 处理文件的[字段]>
  *  @param params     参数字典
+ *  @param loadingImageArr  loading图片数组
  *  @param progress   上传进度
  *  @param success    请求成功返回数据
  *  @param fail       请求失败返回数据
  *  @param showHUD    是否显示HUD
  */
 
-+ (CCPURLSessionTask *)uploadWithImages:(NSArray *)imageArr
-                                    url:(NSString *)url
-                               filename:(NSString *)filename
-                                   names:(NSArray *)nameArr
-                                 params:(NSDictionary *)params
-                               progress:(CCPUploadProgress)progress
-                                success:(CCPResponseSuccess)success
-                                   fail:(CCPResponseFail)fail
-                                showHUD:(BOOL)showHUD;
++ (CCPURLSessionTask *)uploadWithImages:(NSArray *)imageArr url:(NSString *)url filename:(NSString *)filename names:(NSArray *)nameArr params:(NSDictionary *)params loadingImageArr:(NSMutableArray *)loadingImageArr progress:(CCPUploadProgress)progress success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD;
 
 
 /**
@@ -123,11 +116,6 @@ typedef NSURLSessionTask CCPURLSessionTask;
  *  @param showHUD       是否显示HUD
  *  @return 返回请求任务对象，便于操作
  */
-+ (CCPURLSessionTask *)downloadWithUrl:(NSString *)url
-                           saveToPath:(NSString *)saveToPath
-                             progress:(CCPDownloadProgress )progressBlock
-                              success:(CCPResponseSuccess )success
-                              failure:(CCPResponseFail )fail
-                              showHUD:(BOOL)showHUD;
++ (CCPURLSessionTask *)downloadWithUrl:(NSString *)url saveToPath:(NSString *)saveToPath loadingImageArr:(NSMutableArray *)loadingImageArr progress:(CCPDownloadProgress )progressBlock  success:(CCPResponseSuccess )success failure:(CCPResponseFail )fail showHUD:(BOOL)showHUD;
 
 @end
