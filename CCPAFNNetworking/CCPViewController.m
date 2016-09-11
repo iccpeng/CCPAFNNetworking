@@ -64,9 +64,9 @@
     
     NSMutableArray *imageArr = [NSMutableArray array];
     
-    for (int i = 1; i < 71; i ++ ) {
+    for (int i = 1; i < 22; i ++ ) {
         
-        [imageArr addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_8_%d",i]]];
+        [imageArr addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_7_%d",i]]];
     }
     
     
