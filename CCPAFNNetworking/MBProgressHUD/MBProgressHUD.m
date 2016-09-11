@@ -103,7 +103,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
         
         hud.square = NO;
 
-//        [hud hideAnimated:YES afterDelay:10.f];
+//        [hud hideAnimated:YES afterDelay:5.f];
         
         return hud;
         
