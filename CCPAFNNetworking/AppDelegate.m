@@ -24,12 +24,10 @@
     
    UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
     
-   VC.view.backgroundColor = [UIColor whiteColor];
-    
    self.window.rootViewController = NAVC;
     
    [self.window makeKeyAndVisible];
-    // Override point for customization after application launch.
+
     return YES;
 }
 

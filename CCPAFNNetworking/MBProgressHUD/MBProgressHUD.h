@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  隐藏 HUD
  */
-+ (void) dissmiss;
++ (void) dissmissShowView:(UIView *)showView;
 
 /**
  *  显示 HUD 

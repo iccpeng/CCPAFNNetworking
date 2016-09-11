@@ -81,7 +81,7 @@ static NSMutableArray *tasks;
             
             if (showHUD==YES) {
                 
-                [MBProgressHUD dissmiss];
+                [MBProgressHUD dissmissShowView:showView];
             }
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -94,7 +94,7 @@ static NSMutableArray *tasks;
             
             if (showHUD==YES) {
                
-                [MBProgressHUD dissmiss];
+                [MBProgressHUD dissmissShowView:showView];
                 
             }
             
@@ -134,7 +134,7 @@ static NSMutableArray *tasks;
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         
-                        [MBProgressHUD dissmiss];
+                        [MBProgressHUD dissmissShowView:showView];
                     });
                 });
                 
@@ -153,7 +153,7 @@ static NSMutableArray *tasks;
 }
 
 
-+ (CCPURLSessionTask *)uploadWithImages:(NSArray *)imageArr url:(NSString *)url filename:(NSString *)filename names:(NSArray *)nameArr params:(NSDictionary *)params loadingImageArr:(NSMutableArray *)loadingImageArr progress:(CCPUploadProgress)progress success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD {
++ (CCPURLSessionTask *)uploadWithImages:(NSArray *)imageArr url:(NSString *)url filename:(NSString *)filename names:(NSArray *)nameArr params:(NSDictionary *)params loadingImageArr:(NSMutableArray *)loadingImageArr toShowView:(UIView *)showView progress:(CCPUploadProgress)progress success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD {
     
     
     if (url==nil) {
@@ -161,7 +161,8 @@ static NSMutableArray *tasks;
     }
     
     if (showHUD==YES) {
-        //        [MBProgressHUD showHUD];
+        
+        [MBProgressHUD showHUDWithImageArr:loadingImageArr andShowView:showView];
     }
     
     //检查地址中是否有中文
@@ -237,7 +238,7 @@ static NSMutableArray *tasks;
 
 
 
-+ (CCPURLSessionTask *)downloadWithUrl:(NSString *)url saveToPath:(NSString *)saveToPath loadingImageArr:(NSMutableArray *)loadingImageArr progress:(CCPDownloadProgress )progressBlock  success:(CCPResponseSuccess )success failure:(CCPResponseFail )fail showHUD:(BOOL)showHUD{
++ (CCPURLSessionTask *)downloadWithUrl:(NSString *)url saveToPath:(NSString *)saveToPath loadingImageArr:(NSMutableArray *)loadingImageArr progress:(CCPDownloadProgress )progressBlock toShowView:(UIView *)showView success:(CCPResponseSuccess )success failure:(CCPResponseFail )fail showHUD:(BOOL)showHUD{
     
     if (url==nil) {
         return nil;
@@ -300,7 +301,7 @@ static NSMutableArray *tasks;
         
         if (showHUD==YES) {
             
-            [MBProgressHUD dissmiss];
+            [MBProgressHUD dissmissShowView:showView];
         }
         
     }];
@@ -321,9 +322,9 @@ static NSMutableArray *tasks;
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
     AFHTTPSessionManager *manager  = [AFHTTPSessionManager manager];
-//    manager.responseSerializer = [AFJSONResponseSerializer serializer];//设置返回数据为json
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];//设置返回数据为json
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];// 请求
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];//设置返回NSData 数据
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];//设置返回NSData 数据
     
     manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
     manager.requestSerializer.timeoutInterval= 60;

@@ -62,11 +62,15 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 /**
  *  隐藏 HUD
  */
-+ (void) dissmiss {
++ (void) dissmissShowView:(UIView *)showView {
     
-    UIView * view = (UIView*)[[[UIApplication sharedApplication]delegate]window];
+    if (showView == nil) {
+        
+        showView = (UIView*)[[[UIApplication sharedApplication]delegate]window];
+
+    }
     
-    [self hideHUDForView:view animated:YES];
+    [self hideHUDForView:showView animated:YES];
     
 }
 
@@ -76,10 +80,14 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 
 + (instancetype) showHUDWithImageArr:(NSMutableArray *)imageArr andShowView:(UIView *)showView{
     
-    
-//  UIView *view  = [[UIApplication sharedApplication].delegate window];
+    if (showView == nil) {
+        
+       showView  = (UIView *)[[UIApplication sharedApplication].delegate window];
+    }
+  
 
     if (imageArr == nil) {
+        
         
          return [self showHUDAddedTo:showView animated:YES];
         
