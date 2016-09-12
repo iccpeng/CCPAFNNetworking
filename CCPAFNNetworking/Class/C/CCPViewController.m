@@ -53,9 +53,11 @@
     return _imageArray;
 }
 
-
+static NSString * const CCPCell = @"CCPCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.CCPTableView registerNib:[UINib nibWithNibName:@"CCPTableViewCell" bundle:nil] forCellReuseIdentifier:CCPCell];
     
     self.title = @"首页";
     
@@ -92,15 +94,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    CCPTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    
-    if (cell == nil) {
-        
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"CCPTableViewCell" owner:self options:nil] lastObject];
-        
-    };
-    
-    cell.backgroundColor = [UIColor redColor];
+    CCPTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CCPCell];
     
     UIImage *image = self.imageArray[indexPath.row];
     
@@ -128,21 +122,26 @@
     return 205;
 }
 
-
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
-//    
-//    scaleAnimation.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.5, 0.5, 1)];
-//    
-//    scaleAnimation.toValue  = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1, 1, 1)];
-//    
-//    scaleAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-//    
-//    [cell.layer addAnimation:scaleAnimation forKey:@"transform"];
-//    
-//}
-
-
+- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CATransform3D rotation;
+    
+    rotation = CATransform3DMakeRotation( (90.0*M_PI)/180, 0.0, 0.7, 0.4);
+    rotation.m34 = 1.0/ -600;
+    cell.layer.transform = rotation;
+    cell.layer.shadowColor = [[UIColor blackColor]CGColor];
+    cell.layer.shadowOffset = CGSizeMake(10, 10);
+    cell.alpha = 0;
+   
+//    cell.layer.anchorPoint = CGPointMake(0, 0.5);
+    
+    [UIView beginAnimations:@"rotation" context:NULL];
+    [UIView setAnimationDuration:0.8];
+    cell.layer.transform = CATransform3DIdentity;
+    cell.alpha = 1;
+    cell.layer.shadowOffset = CGSizeMake(0, 0);
+    [UIView commitAnimations];
+    
+}
 
 @end
