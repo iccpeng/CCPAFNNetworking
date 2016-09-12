@@ -39,7 +39,6 @@
 }
 
 
-
 - (NSMutableArray *)imageArray {
     
     //1 - 54 的随机数
@@ -124,9 +123,7 @@ static NSString * const CCPCell = @"CCPCell";
     
     CCPTableViewController *VC = [[CCPTableViewController alloc] init];
     
-
     [self.navigationController pushViewController:VC animated:YES];
-    
     
 }
 
