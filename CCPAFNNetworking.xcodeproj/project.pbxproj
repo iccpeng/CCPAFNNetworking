@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21530D801D869E28001D494F /* CCPNetworing2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 21530D7F1D869E28001D494F /* CCPNetworing2.gif */; };
 		2176BCBB1D864265008761CD /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2176BC5B1D864265008761CD /* AFHTTPSessionManager.m */; };
 		2176BCBC1D864265008761CD /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2176BC5E1D864265008761CD /* AFNetworkReachabilityManager.m */; };
 		2176BCBD1D864265008761CD /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2176BC601D864265008761CD /* AFSecurityPolicy.m */; };
@@ -88,6 +89,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		21530D7F1D869E28001D494F /* CCPNetworing2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = CCPNetworing2.gif; sourceTree = "<group>"; };
 		2176BC5A1D864265008761CD /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		2176BC5B1D864265008761CD /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
 		2176BC5C1D864265008761CD /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
@@ -468,6 +470,7 @@
 		21E0CF211D8283E500A60FA6 /* CCPAFNNetworking */ = {
 			isa = PBXGroup;
 			children = (
+				21530D7F1D869E28001D494F /* CCPNetworing2.gif */,
 				2176BC571D864265008761CD /* library */,
 				2176BCE91D864271008761CD /* Class */,
 				2176BD001D8642D4008761CD /* CCPNetworking */,
@@ -613,6 +616,7 @@
 			files = (
 				2176BCCE1D864265008761CD /* Info.plist in Resources */,
 				2176BCC11D864265008761CD /* LICENSE in Resources */,
+				21530D801D869E28001D494F /* CCPNetworing2.gif in Resources */,
 				21E0CF321D8283E500A60FA6 /* LaunchScreen.storyboard in Resources */,
 				2176BCFF1D864271008761CD /* CCPTableViewCell.xib in Resources */,
 				21E0CF2F1D8283E500A60FA6 /* Assets.xcassets in Resources */,
