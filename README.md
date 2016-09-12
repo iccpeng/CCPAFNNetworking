@@ -226,7 +226,5 @@ if (view == nil) view = [UIApplication sharedApplication].keyWindow;
         
   } showHUD:YES];
 
-### 
-
-
+感谢您的阅读，期待您的 Star。
 
