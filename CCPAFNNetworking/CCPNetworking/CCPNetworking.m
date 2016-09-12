@@ -41,7 +41,6 @@ static NSMutableArray *tasks;
     return tasks;
 }
 
-
 +(CCPURLSessionTask *)getOrPostWithType:(httpMethod)httpMethod   WithUrl:(NSString *)url params:(NSDictionary *)params loadingImageArr:(NSMutableArray *)loadingImageArr  toShowView:(UIView *)showView success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD{
     
     return [self baseRequestType:httpMethod url:url params:params loadingImageArr:loadingImageArr toShowView:showView success:success fail:fail showHUD:showHUD];
@@ -95,7 +94,7 @@ static NSMutableArray *tasks;
             if (showHUD==YES) {
                
                 [MBProgressHUD dissmissShowView:showView];
-                
+
             }
             
         }];
@@ -114,7 +113,7 @@ static NSMutableArray *tasks;
             
             if (showHUD==YES) {
                 
-//                [MBProgressHUD dissmiss];
+                [MBProgressHUD dissmissShowView:showView];
             
             }
             
@@ -210,7 +209,8 @@ static NSMutableArray *tasks;
         [[self tasks] removeObject:sessionTask];
         
         if (showHUD==YES) {
-            //            [MBProgressHUD dissmiss];
+            
+            [MBProgressHUD dissmissShowView:showView];
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -222,7 +222,8 @@ static NSMutableArray *tasks;
         [[self tasks] removeObject:sessionTask];
         
         if (showHUD==YES) {
-            //            [MBProgressHUD dissmiss];
+            
+            [MBProgressHUD dissmissShowView:showView];
         }
         
     }];
@@ -246,7 +247,8 @@ static NSMutableArray *tasks;
     
     if (showHUD==YES) {
         
-//        [MBProgressHUD showHUDWithImageArr:loadingImageArr];
+     [MBProgressHUD showHUDWithImageArr:loadingImageArr andShowView:showView];
+    
     }
     
     NSURLRequest *downloadRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
@@ -327,7 +329,7 @@ static NSMutableArray *tasks;
 //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];//设置返回NSData 数据
     
     manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
-    manager.requestSerializer.timeoutInterval= 60;
+    manager.requestSerializer.timeoutInterval= 30;
     
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",
                                                                               @"text/html",
@@ -423,10 +425,6 @@ static NSMutableArray *tasks;
 
     return [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
-
-
-
-
 
 - (void)dealloc
 {

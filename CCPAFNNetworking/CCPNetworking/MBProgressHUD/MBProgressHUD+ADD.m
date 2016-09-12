@@ -10,24 +10,46 @@
 
 @implementation MBProgressHUD (ADD)
 
-
-
-
-+ (void)showError:(NSString *)error toView:(UIView *)view {
++ (MBProgressHUD *)showInformation:(NSString *)information toView:(UIView *)view andAfterDelay:(float)afterDelay{
     
+    if (view == nil) view = [UIApplication sharedApplication].keyWindow;
+ 
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    ;
+
+    hud.mode = MBProgressHUDModeText;
+    
+    hud.label.text = information;
+    
+    hud.offset = CGPointMake(0.f, MBProgressMaxOffset);
+    
+    [hud hideAnimated:YES afterDelay:afterDelay];
+    
+   return hud;
     
 }
 
-+ (void)showSuccess:(NSString *)success toView:(UIView *)view {
++ (void)showCustomview:(UIView *)customview andTextString:(NSString *)textString toView:(UIView *)view andAfterDelay:(float)afterDelay{
     
+    if (view == nil) view = [UIApplication sharedApplication].keyWindow;
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    
+    hud.mode = MBProgressHUDModeCustomView;
+    
+    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+    
+    hud.bezelView.color = [UIColor clearColor];
+    
+    hud.customView = customview;
+
+    hud.square = YES;
+
+    hud.label.text = textString;
+    
+    [hud hideAnimated:YES afterDelay:afterDelay];
     
 }
 
-+ (MBProgressHUD *)showMessag:(NSString *)message toView:(UIView *)view {
-    
-    
-    
-    return nil;
-}
 
 @end

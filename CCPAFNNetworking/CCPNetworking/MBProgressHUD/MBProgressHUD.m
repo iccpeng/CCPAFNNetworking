@@ -88,7 +88,6 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 
     if (imageArr == nil) {
         
-        
          return [self showHUDAddedTo:showView animated:YES];
         
     } else {
@@ -110,8 +109,6 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
         hud.customView = imaegCustomView;
         
         hud.square = NO;
-
-//        [hud hideAnimated:YES afterDelay:5.f];
         
         return hud;
         

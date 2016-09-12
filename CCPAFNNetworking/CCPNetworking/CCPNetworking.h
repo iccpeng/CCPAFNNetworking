@@ -46,15 +46,14 @@ typedef NSURLSessionTask CCPURLSessionTask;
 @interface CCPNetworking : NSObject
 
 
+@property (nonatomic,assign)NetworkStatu networkStats;
+
 /**
  *  单例
  */
 + (CCPNetworking *)sharedCCPNetworking;
 
-/**
- *  获取网络
- */
-@property (nonatomic,assign)NetworkStatu networkStats;
+
 
 /**
  *  开启网络监测

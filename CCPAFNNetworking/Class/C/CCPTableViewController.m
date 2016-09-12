@@ -28,7 +28,7 @@
 
     NSMutableArray *imageArr = [NSMutableArray array];
     
-    //0 - 8 的随机数
+    //1 - 8 的随机数
     int y = (arc4random() % 8) + 1;
     
     int I = 0;
@@ -134,7 +134,7 @@
 
     CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
 
-    scaleAnimation.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.5, 0.5, 1)];
+    scaleAnimation.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.2, 0.2, 1)];
 
     scaleAnimation.toValue  = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1, 1, 1)];
 

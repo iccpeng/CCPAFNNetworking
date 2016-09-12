@@ -10,6 +10,7 @@
 #import "CCPNetworking.h"
 #import "CCPTableViewCell.h"
 #import "CCPTableViewController.h"
+#import "MBProgressHUD+ADD.h"
 
 @interface CCPViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -37,15 +38,21 @@
     
 }
 
+
+
 - (NSMutableArray *)imageArray {
+    
+    //1 - 54 的随机数
+    int y = (arc4random() % 54) + 1;
     
     if (_imageArray == nil) {
         
         _imageArray = [NSMutableArray array];
         
-        for (int i = 1; i < 54; i ++ ) {
-            
-            [_imageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"image_%d",i]]];
+        for (int i = 1; i < y; i ++ ) {
+            //获取1 - 53 之间随机的图片
+            int z = (arc4random() % 53) + 1;
+            [_imageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"image_%d",z]]];
         }
         
     }
@@ -57,6 +64,13 @@ static NSString * const CCPCell = @"CCPCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //判断是否有网络链接
+    if (![CCPNetworking isHaveNetwork]) {
+        
+        [MBProgressHUD showInformation:@"网络无连接，请检查网络" toView:self.view.window andAfterDelay:5.0];
+        
+    }
+    
     [self.CCPTableView registerNib:[UINib nibWithNibName:@"CCPTableViewCell" bundle:nil] forCellReuseIdentifier:CCPCell];
     
     self.title = @"首页";
@@ -66,19 +80,19 @@ static NSString * const CCPCell = @"CCPCell";
     
     NSMutableArray *imageArr = [NSMutableArray array];
     
-    for (int i = 1; i < 22; i ++ ) {
+    for (int i = 1; i < 12; i ++ ) {
         
-        [imageArr addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_7_%d",i]]];
+        [imageArr addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_1_%d",i]]];
     }
     
+    UIImageView *showImageView = [[UIImageView alloc] init];
     
-    [CCPNetworking getOrPostWithType:GET WithUrl:@"http://newsapi.sina.cn/?resource=feed&accessToken=&chwm=3023_0001&city=CHXX0008&connectionType=2&deviceId=3d91d5d90c90486cde48597325cf846b699ceb53&deviceModel=apple-iphone5&from=6053093012&idfa=7CE5628E-577A-4A0E-B9E5-283217ECA1F1&idfv=10E31C9D-59AE-4547-BDEF-5FF3EA045D86&imei=3d91d5d90c90486cde48597325cf846b699ceb53&location=39.998602%2C116.365189&osVersion=9.3.5&resolution=640x1136&token=61903050f1141245bfb85231b58e84fb586743436ceb50af9f7dfe17714ee6f7&ua=apple-iphone5__SinaNews__5.3__iphone__9.3.5&weiboSuid=&weiboUid=&wm=b207&rand=221&urlSign=3c861405dd&behavior=manual&channel=news_pic&lastTimestamp=1473578882&listCount=20&p=1&pullDirection=down&pullTimes=8&replacedFlag=1&s=20" params:nil loadingImageArr:imageArr toShowView:self.view success:^(id response) {
-
-        
-    } fail:^(NSError *error) {
-        
-        
-    } showHUD:YES];
+    showImageView.animationImages = imageArr;
+    [showImageView setAnimationRepeatCount:0];
+    [showImageView setAnimationDuration:(imageArr.count + 1) * 0.075];
+    [showImageView startAnimating];
+    
+    [MBProgressHUD showCustomview:showImageView andTextString:@"数据加载中..." toView:self.view.window andAfterDelay:5.0];
 
 }
 
