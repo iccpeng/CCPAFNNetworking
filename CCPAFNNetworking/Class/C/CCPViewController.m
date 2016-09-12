@@ -38,6 +38,8 @@
     
 }
 
+
+
 - (NSMutableArray *)imageArray {
     
     //1 - 54 的随机数
