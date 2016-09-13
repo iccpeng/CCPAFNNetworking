@@ -237,8 +237,6 @@ static NSMutableArray *tasks;
 }
 
 
-
-
 + (CCPURLSessionTask *)downloadWithUrl:(NSString *)url saveToPath:(NSString *)saveToPath loadingImageArr:(NSMutableArray *)loadingImageArr progress:(CCPDownloadProgress )progressBlock toShowView:(UIView *)showView success:(CCPResponseSuccess )success failure:(CCPResponseFail )fail showHUD:(BOOL)showHUD{
     
     if (url==nil) {
@@ -278,8 +276,8 @@ static NSMutableArray *tasks;
             return [downloadURL URLByAppendingPathComponent:[response suggestedFilename]];
             
         }else{
-            return [NSURL fileURLWithPath:saveToPath];
             
+            return [NSURL fileURLWithPath:saveToPath];
         }
         
     } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
@@ -308,8 +306,9 @@ static NSMutableArray *tasks;
         
     }];
     
-    //开始启动任务
+    //开始下载
     [sessionTask resume];
+    //
     if (sessionTask) {
         
         [[self tasks] addObject:sessionTask];
@@ -319,6 +318,8 @@ static NSMutableArray *tasks;
     return sessionTask;
     
 }
+
+
 
 + (AFHTTPSessionManager *)getAFManager{
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;

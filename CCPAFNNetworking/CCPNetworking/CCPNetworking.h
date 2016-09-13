@@ -54,7 +54,6 @@ typedef NSURLSessionTask CCPURLSessionTask;
 + (CCPNetworking *)sharedCCPNetworking;
 
 
-
 /**
  *  开启网络监测
  */
