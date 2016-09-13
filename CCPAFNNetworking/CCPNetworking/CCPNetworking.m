@@ -422,6 +422,7 @@ static NSMutableArray *tasks;
     }
 }
 
+
 + (NSString *)strUTF8Encoding:(NSString *)str{
 
     return [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
