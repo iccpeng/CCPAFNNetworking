@@ -228,5 +228,5 @@ if (view == nil) view = [UIApplication sharedApplication].keyWindow;
         
   } showHUD:YES];
 
-感谢您的阅读，期待您的 Star，如果在使用中您有任何问题，可以在 github issues,我会尽自己能力给您答复 。
+感谢您的阅读，期待您的 Star，如果在使用中您有任何问题，可以在 github issue,我会尽自己能力给您答复 。
 
