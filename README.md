@@ -22,6 +22,8 @@ MJExtension 在这里一并对这些开源优秀框架的作者表示感谢。
 
 ### DEMO GIF：
 
+![Image text](https://github.com/IMCCP/CCPAFNNetworking/blob/master/CCPAFNNetworking/library/CCPNetworing3.gif)
+
 ### DEMO中各个方法介绍：
 
 ####1.MBProgressHUD 中添加两个方法
