@@ -2,6 +2,8 @@
 
 AFN 与 MBProgressHUD（注意版本号：version：1.0.0） 的组合封装
 
+首先感谢您的 Star，如果在使用中您有任何问题，可以在 github issue,我会尽自己能力给您答复 。
+
 ###DEMO 描述：
 
 最近有些朋友在技术交流群问我有没有封装好的AFN网络请求框架，由于之前封装的AFN与MBProgressHUD的版本比较老，导入到项目后会
@@ -228,5 +230,5 @@ if (view == nil) view = [UIApplication sharedApplication].keyWindow;
         
   } showHUD:YES];
 
-感谢您的阅读，期待您的 Star，如果在使用中您有任何问题，可以在 github issue,我会尽自己能力给您答复 。
+
 
