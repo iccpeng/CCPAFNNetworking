@@ -33,9 +33,9 @@ MJExtension 在这里一并对这些开源优秀框架的作者表示感谢。
 /**
  *  隐藏 HUD
  */
-+ (void) dissmissShowView:(UIView *)showView {
+    + (void) dissmissShowView:(UIView *)showView {
 
- if (showView == nil) {
+    if (showView == nil) {
         
         showView = (UIView*)[[[UIApplication sharedApplication]delegate]window];
 
