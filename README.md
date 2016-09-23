@@ -33,36 +33,34 @@ MJExtension 在这里一并对这些开源优秀框架的作者表示感谢。
 /**
  *  隐藏 HUD
  */
-    + (void) dissmissShowView:(UIView *)showView {
++ (void) dissmissShowView:(UIView *)showView {
     
-    if (showView == nil) {
+ if (showView == nil) {
             
-    showView = (UIView*)[[[UIApplication sharedApplication]delegate]window];
+showView = (UIView*)[[[UIApplication sharedApplication]delegate]window];
     
-    }
+}
         
-    [self hideHUDForView:showView animated:YES];
+[self hideHUDForView:showView animated:YES];
     
-    }
+}
 
 /**
  *  显示 HUD 
  *  @param imageArr   loading 图片数组
  *  @param showView   HUD 展示的View   
  */
-+ (instancetype) showHUDWithImageArr:(NSMutableArray *)imageArr andShowView:(UIView *)showView {
+    + (instancetype) showHUDWithImageArr:(NSMutableArray *)imageArr andShowView:(UIView *)showView {
 
-if (showView == nil) {
+    if (showView == nil) {
       
        showView  = (UIView *)[[UIApplication sharedApplication].delegate window];
     
-    }
-  
-  if (imageArr == nil) {
+    }if (imageArr == nil) {
         
          return [self showHUDAddedTo:showView animated:YES];
         
-  } else {
+        } else {
         
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:showView animated:YES];
         
