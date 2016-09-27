@@ -96,6 +96,7 @@ showView = (UIView*)[[[UIApplication sharedApplication]delegate]window];
 
 }
 ```
+```
 ####2.MB分类（MBProgressHUD+ADD.h）方法介绍
 
 /**
@@ -122,7 +123,8 @@ if (view == nil) view = [UIApplication sharedApplication].keyWindow;
    return hud;
 
 }
-
+```
+```
 /**
  *  展示自定义view
  *  @param customview 自定义的view
@@ -151,10 +153,10 @@ if (view == nil) view = [UIApplication sharedApplication].keyWindow;
   hud hideAnimated:YES afterDelay:afterDelay];
 
 }
-
+```
 
 ####.网络请求工具类方法介绍
-
+```
 /**
  *  单例 返回网络请求工具类对象
  */
@@ -174,7 +176,8 @@ if (view == nil) view = [UIApplication sharedApplication].keyWindow;
  *  检测是否有网络连接
  */
 + (BOOL) isHaveNetwork;
-
+```
+```
 /**
  *  post 或者 get 请求方法,block回调
  *  @param httpMethod       网络请求类型
@@ -188,7 +191,8 @@ if (view == nil) view = [UIApplication sharedApplication].keyWindow;
  */
 
 +(CCPURLSessionTask *)getOrPostWithType:(httpMethod)httpMethod   WithUrl:(NSString *)url params:(NSDictionary *)params loadingImageArr:(NSMutableArray *)loadingImageArr  toShowView:(UIView *)showView success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD;
-
+```
+```
 /**
  *  上传图片方法 支持多张和单张上传
  *  @param image      上传的图片数组
@@ -205,7 +209,8 @@ if (view == nil) view = [UIApplication sharedApplication].keyWindow;
  */
 
 + (CCPURLSessionTask *)uploadWithImages:(NSArray *)imageArr url:(NSString *)url filename:(NSString *)filename names:(NSArray *)nameArr params:(NSDictionary *)params loadingImageArr:(NSMutableArray *)loadingImageArr toShowView:(UIView *)showView progress:(CCPUploadProgress)progress success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD;
-
+```
+```
 /**
  *  下载文件方法
  *  @param url           下载地址
@@ -219,11 +224,11 @@ if (view == nil) view = [UIApplication sharedApplication].keyWindow;
  *  @return              返回请求任务对象，便于操作
  */
 + (CCPURLSessionTask *)downloadWithUrl:(NSString *)url saveToPath:(NSString *)saveToPath loadingImageArr:(NSMutableArray *)loadingImageArr progress:(CCPDownloadProgress )progressBlock toShowView:(UIView *)showView success:(CCPResponseSuccess )success failure:(CCPResponseFail )fail showHUD:(BOOL)showHUD;
-
+```
 注：具体方法实现步骤不再在这里进行展示，浪费大家的时间，DEMO中已经做了很多标注，大家可以下载DEMO查阅。
 
 ###DEMO 使用示例
-
+```
  [CCPNetworking getOrPostWithType:GET WithUrl:@"http://newsapi.sina.cn/?resource=feed&accessToken=&chwm=3023_0001&city=CHXX0008&connectionType=2&deviceId=3d91d5d90c90486cde48597325cf846b699ceb53&deviceModel=apple-iphone5&from=6053093012&idfa=7CE5628E-577A-4A0E-B9E5-283217ECA1F1&idfv=10E31C9D-59AE-4547-BDEF-5FF3EA045D86&imei=3d91d5d90c90486cde48597325cf846b699ceb53&location=39.998602%2C116.365189&osVersion=9.3.5&resolution=640x1136&token=61903050f1141245bfb85231b58e84fb586743436ceb50af9f7dfe17714ee6f7&ua=apple-iphone5__SinaNews__5.3__iphone__9.3.5&weiboSuid=&weiboUid=&wm=b207&rand=221&urlSign=3c861405dd&behavior=manual&channel=news_pic&lastTimestamp=1473578882&listCount=20&p=1&pullDirection=down&pullTimes=8&replacedFlag=1&s=20" params:nil loadingImageArr:imageArr toShowView:self.view success:^(id response) {
  
  //成功的回调，在这里进行数据的解析
@@ -233,6 +238,6 @@ if (view == nil) view = [UIApplication sharedApplication].keyWindow;
   //失败的回调 ，提示用户错误信息  
         
   } showHUD:YES];
-
+```
 
 
