@@ -79,9 +79,9 @@ static NSString * const CCPCell = @"CCPCell";
     
     NSMutableArray *imageArr = [NSMutableArray array];
     
-    for (int i = 1; i < 12; i ++ ) {
+    for (int i = 1; i < 56; i ++ ) {
         
-        [imageArr addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_1_%d",i]]];
+        [imageArr addObject:[UIImage imageNamed:[NSString stringWithFormat:@"Expression_%d",i]]];
     }
     
     UIImageView *showImageView = [[UIImageView alloc] init];
