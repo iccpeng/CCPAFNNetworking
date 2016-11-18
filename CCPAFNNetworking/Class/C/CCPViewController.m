@@ -41,21 +41,12 @@
 
 - (NSMutableArray *)imageArray {
     
-    //1 - 54 的随机数
-    int y = (arc4random() % 10) + 1;
-    
     if (_imageArray == nil) {
-        
         _imageArray = [NSMutableArray array];
-        
-        for (int i = 1; i < y; i ++ ) {
-            //获取1 - 10 之间随机的图片
-            int z = (arc4random() % 10) + 1;
-            [_imageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"image_%d",z]]];
+        for (int i = 1; i < 11; i ++ ) {
+            [_imageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"image_%d",i]]];
         }
-        
     }
-    
     return _imageArray;
 }
 
@@ -79,9 +70,9 @@ static NSString * const CCPCell = @"CCPCell";
     
     NSMutableArray *imageArr = [NSMutableArray array];
     
-    for (int i = 1; i < 56; i ++ ) {
+    for (int i = 1; i < 12; i ++ ) {
         
-        [imageArr addObject:[UIImage imageNamed:[NSString stringWithFormat:@"Expression_%d",i]]];
+        [imageArr addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_1_%d",i]]];
     }
     
     UIImageView *showImageView = [[UIImageView alloc] init];
