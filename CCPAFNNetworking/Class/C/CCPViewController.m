@@ -42,15 +42,15 @@
 - (NSMutableArray *)imageArray {
     
     //1 - 54 的随机数
-    int y = (arc4random() % 54) + 1;
+    int y = (arc4random() % 10) + 1;
     
     if (_imageArray == nil) {
         
         _imageArray = [NSMutableArray array];
         
         for (int i = 1; i < y; i ++ ) {
-            //获取1 - 53 之间随机的图片
-            int z = (arc4random() % 53) + 1;
+            //获取1 - 10 之间随机的图片
+            int z = (arc4random() % 10) + 1;
             [_imageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"image_%d",z]]];
         }
         

@@ -28,48 +28,9 @@
 
     NSMutableArray *imageArr = [NSMutableArray array];
     
-    //1 - 8 的随机数
-    int y = (arc4random() % 8) + 1;
-    
-    int I = 0;
-    
-    if (y == 1) {
+    for (int i = 1; i < 23; i ++ ) {
         
-         I = 12 + 1;
-        
-    } else if (y == 2) {
-        
-         I = 8 + 1;
-    
-    }else if (y == 3) {
-        
-         I = 16 + 1;
-        
-    }else if (y == 4) {
-        
-         I = 50 + 1;
-        
-    }else if (y == 5) {
-        
-         I = 23 + 1;
-        
-    }else if (y == 6) {
-        
-         I = 13 + 1;
-        
-    }else if (y == 7) {
-        
-         I = 22 + 1;
-        
-    }else if (y == 8) {
-        
-         I = 70 + 1;
-    }
-    
-    
-    for (int i = 1; i < I; i ++ ) {
-        
-        [imageArr addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_%d_%d",y,i]]];
+        [imageArr addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_7_%d",i]]];
     }
     
     [CCPNetworking getOrPostWithType:GET WithUrl:@"http://newsapi.sina.cn/?resource=feed&accessToken=&chwm=3023_0001&city=CHXX0008&connectionType=2&deviceId=3d91d5d90c90486cde48597325cf846b699ceb53&deviceModel=apple-iphone5&from=6053093012&idfa=7CE5628E-577A-4A0E-B9E5-283217ECA1F1&idfv=10E31C9D-59AE-4547-BDEF-5FF3EA045D86&imei=3d91d5d90c90486cde48597325cf846b699ceb53&location=39.998602%2C116.365189&osVersion=9.3.5&resolution=640x1136&token=61903050f1141245bfb85231b58e84fb586743436ceb50af9f7dfe17714ee6f7&ua=apple-iphone5__SinaNews__5.3__iphone__9.3.5&weiboSuid=&weiboUid=&wm=b207&rand=221&urlSign=3c861405dd&behavior=manual&channel=news_pic&lastTimestamp=1473578882&listCount=20&p=1&pullDirection=down&pullTimes=8&replacedFlag=1&s=20" params:nil loadingImageArr:imageArr toShowView:self.view.window success:^(id response) {
