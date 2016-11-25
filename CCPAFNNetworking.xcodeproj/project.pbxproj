@@ -65,7 +65,6 @@
 		2176BD0D1D86430B008761CD /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2176BD0B1D86430B008761CD /* Reachability.m */; };
 		21E0CF241D8283E500A60FA6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E0CF231D8283E500A60FA6 /* main.m */; };
 		21E0CF271D8283E500A60FA6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E0CF261D8283E500A60FA6 /* AppDelegate.m */; };
-		21E0CF2F1D8283E500A60FA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21E0CF2E1D8283E500A60FA6 /* Assets.xcassets */; };
 		21E0CF321D8283E500A60FA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21E0CF301D8283E500A60FA6 /* LaunchScreen.storyboard */; };
 		21E0CF3D1D8283E500A60FA6 /* CCPAFNNetworkingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E0CF3C1D8283E500A60FA6 /* CCPAFNNetworkingTests.m */; };
 		21E0CF481D8283E500A60FA6 /* CCPAFNNetworkingUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E0CF471D8283E500A60FA6 /* CCPAFNNetworkingUITests.m */; };
@@ -90,6 +89,7 @@
 		7E7603421DDEFF4D009D85CD /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E76032D1DDEFF4D009D85CD /* UIScrollView+MJRefresh.m */; };
 		7E7603431DDEFF4D009D85CD /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E76032F1DDEFF4D009D85CD /* UIView+MJExtension.m */; };
 		7E7603461DDF01D4009D85CD /* CCPEmojiHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7603451DDF01D4009D85CD /* CCPEmojiHeaderView.m */; };
+		7E94D5ED1DE7D62100BCAEB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E94D5EC1DE7D62100BCAEB7 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -223,7 +223,6 @@
 		21E0CF231D8283E500A60FA6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		21E0CF251D8283E500A60FA6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		21E0CF261D8283E500A60FA6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		21E0CF2E1D8283E500A60FA6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21E0CF311D8283E500A60FA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		21E0CF331D8283E500A60FA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21E0CF381D8283E500A60FA6 /* CCPAFNNetworkingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CCPAFNNetworkingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,6 +273,7 @@
 		7E76032F1DDEFF4D009D85CD /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
 		7E7603441DDF01D4009D85CD /* CCPEmojiHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPEmojiHeaderView.h; sourceTree = "<group>"; };
 		7E7603451DDF01D4009D85CD /* CCPEmojiHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPEmojiHeaderView.m; sourceTree = "<group>"; };
+		7E94D5EC1DE7D62100BCAEB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -539,10 +539,10 @@
 			children = (
 				2176BC571D864265008761CD /* library */,
 				2176BCE91D864271008761CD /* Class */,
+				7E94D5EC1DE7D62100BCAEB7 /* Assets.xcassets */,
 				2176BD001D8642D4008761CD /* CCPNetworking */,
 				21E0CF251D8283E500A60FA6 /* AppDelegate.h */,
 				21E0CF261D8283E500A60FA6 /* AppDelegate.m */,
-				21E0CF2E1D8283E500A60FA6 /* Assets.xcassets */,
 				21E0CF301D8283E500A60FA6 /* LaunchScreen.storyboard */,
 				21E0CF331D8283E500A60FA6 /* Info.plist */,
 				21E0CF221D8283E500A60FA6 /* Supporting Files */,
@@ -780,9 +780,9 @@
 				21E0CF321D8283E500A60FA6 /* LaunchScreen.storyboard in Resources */,
 				21530D821D86A4B0001D494F /* CCPNetworing3.gif in Resources */,
 				2176BCFF1D864271008761CD /* CCPTableViewCell.xib in Resources */,
-				21E0CF2F1D8283E500A60FA6 /* Assets.xcassets in Resources */,
 				2176BCFD1D864271008761CD /* CCPDataTableViewCell.xib in Resources */,
 				2176BCD91D864265008761CD /* LICENSE in Resources */,
+				7E94D5ED1DE7D62100BCAEB7 /* Assets.xcassets in Resources */,
 				7E76033E1DDEFF4D009D85CD /* MJRefresh.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
