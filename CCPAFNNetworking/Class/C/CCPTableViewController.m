@@ -82,7 +82,7 @@
         // 拿到当前的下拉刷新控件，结束刷新状态
         [tableView.mj_header endRefreshing];
         
-    } showHUD:NO];
+    } showHUD:YES];
 
 }
 
