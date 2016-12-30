@@ -322,26 +322,27 @@ static NSMutableArray *tasks;
 
 
 + (AFHTTPSessionManager *)getAFManager{
-    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
-    AFHTTPSessionManager *manager  = [AFHTTPSessionManager manager];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];//设置返回数据为json
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer];// 请求
-//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];//设置返回NSData 数据
+    static AFHTTPSessionManager *httpManager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+        httpManager = [AFHTTPSessionManager manager];
+        httpManager.responseSerializer = [AFJSONResponseSerializer serializer];//设置返回数据为json
+        httpManager.requestSerializer = [AFHTTPRequestSerializer serializer];// 请求
+        //httpManager.responseSerializer = [AFHTTPResponseSerializer serializer];//设置返回NSData 数据
+        httpManager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
+        httpManager.requestSerializer.timeoutInterval= 30;
+        httpManager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",
+                                                                                  @"text/html",
+                                                                                  @"text/json",
+                                                                                  @"text/plain",
+                                                                                  @"text/javascript",
+                                                                                  @"text/xml",
+                                                                                  @"image/*"]];
+    });
     
-    manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
-    manager.requestSerializer.timeoutInterval= 30;
-    
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",
-                                                                              @"text/html",
-                                                                              @"text/json",
-                                                                              @"text/plain",
-                                                                              @"text/javascript",
-                                                                              @"text/xml",
-                                                                              @"image/*"]];
-    
-    return manager;
-    
+   return httpManager;
 }
 
 #pragma makr - 开始监听程序在运行中的网络连接变化
