@@ -268,16 +268,14 @@ static NSMutableArray *tasks;
         
     } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
         if (!saveToPath) {
-            
             NSURL *downloadURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-            
             CCPLog(@"默认路径--%@",downloadURL);
-            
             return [downloadURL URLByAppendingPathComponent:[response suggestedFilename]];
             
         }else{
-            
-            return [NSURL fileURLWithPath:saveToPath];
+            NSURL *downloadURL = [NSURL fileURLWithPath:saveToPath];
+            CCPLog(@"目标下载路径--%@",downloadURL);
+            return [downloadURL URLByAppendingPathComponent:[response suggestedFilename]];
         }
         
     } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {

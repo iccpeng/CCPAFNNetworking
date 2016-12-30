@@ -20,7 +20,7 @@
 @implementation CCPDataTableViewCell
 
 - (void)awakeFromNib {
-
+    [super awakeFromNib];
 
 }
 

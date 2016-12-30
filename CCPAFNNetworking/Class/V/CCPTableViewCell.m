@@ -11,6 +11,7 @@
 @implementation CCPTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

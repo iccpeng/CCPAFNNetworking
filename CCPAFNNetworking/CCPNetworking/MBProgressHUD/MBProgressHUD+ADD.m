@@ -21,6 +21,8 @@
     
     hud.label.text = information;
     
+    hud.label.numberOfLines = 0;
+    
     hud.offset = CGPointMake(0.f, MBProgressMaxOffset);
     
     [hud hideAnimated:YES afterDelay:afterDelay];
