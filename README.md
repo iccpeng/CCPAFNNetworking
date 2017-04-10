@@ -83,9 +83,8 @@ showView = (UIView*)[[[UIApplication sharedApplication]delegate]window];
 
 }
 ```
+#### 2.MB分类（MBProgressHUD+ADD.h）方法介绍
 ```
-####2.MB分类（MBProgressHUD+ADD.h）方法介绍
-
 /**
  *  展示信息
  *  @param information 提示文字
