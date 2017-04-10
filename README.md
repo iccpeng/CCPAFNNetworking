@@ -4,7 +4,7 @@ AFN 与 MBProgressHUD（注意版本号：version：1.0.0） 的组合封装
 
 首先感谢您的 Star，如果在使用中您有任何问题，可以在 github issue,我会尽自己能力给您答复 。
 
-###DEMO 描述：
+### DEMO 描述：
 
 最近有些朋友在技术交流群问我有没有封装好的AFN网络请求框架，由于之前封装的AFN与MBProgressHUD的版本比较老，导入到项目后会
 
@@ -18,13 +18,13 @@ AFN 与 MBProgressHUD（注意版本号：version：1.0.0） 的组合封装
 
 ### DEMO中各个方法介绍：
 
-####1.MBProgressHUD 中添加两个方法
+#### 1.MBProgressHUD 中添加两个方法
 
-
+```
 /**
  *  隐藏 HUD
  */
-```
+
 + (void) dissmissShowView:(UIView *)showView {
     
  if (showView == nil) {
@@ -142,7 +142,7 @@ if (view == nil) view = [UIApplication sharedApplication].keyWindow;
 }
 ```
 
-####.网络请求工具类方法介绍
+#### 网络请求工具类方法介绍
 ```
 /**
  *  单例 返回网络请求工具类对象
@@ -214,7 +214,7 @@ if (view == nil) view = [UIApplication sharedApplication].keyWindow;
 ```
 注：具体方法实现步骤不再在这里进行展示，浪费大家的时间，DEMO中已经做了很多标注，大家可以下载DEMO查阅。
 
-###DEMO 使用示例
+### DEMO 使用示例
 ```
  [CCPNetworking getOrPostWithType:GET WithUrl:@"http://newsapi.sina.cn/?resource=feed&accessToken=&chwm=3023_0001&city=CHXX0008&connectionType=2&deviceId=3d91d5d90c90486cde48597325cf846b699ceb53&deviceModel=apple-iphone5&from=6053093012&idfa=7CE5628E-577A-4A0E-B9E5-283217ECA1F1&idfv=10E31C9D-59AE-4547-BDEF-5FF3EA045D86&imei=3d91d5d90c90486cde48597325cf846b699ceb53&location=39.998602%2C116.365189&osVersion=9.3.5&resolution=640x1136&token=61903050f1141245bfb85231b58e84fb586743436ceb50af9f7dfe17714ee6f7&ua=apple-iphone5__SinaNews__5.3__iphone__9.3.5&weiboSuid=&weiboUid=&wm=b207&rand=221&urlSign=3c861405dd&behavior=manual&channel=news_pic&lastTimestamp=1473578882&listCount=20&p=1&pullDirection=down&pullTimes=8&replacedFlag=1&s=20" params:nil loadingImageArr:imageArr toShowView:self.view success:^(id response) {
  
