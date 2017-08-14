@@ -11,6 +11,7 @@
 #import "AFNetworkActivityIndicatorManager.h"
 #import "MBProgressHUD.h"
 #import "MBProgressHUD+ADD.h"
+#import "DGActivityIndicatorView.h"
 
 #ifdef DEBUG
 #   define CCPLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
@@ -18,7 +19,6 @@
 #   define CCPLog(...)
 #endif
 
-static NSMutableArray *tasks;
 
 @implementation CCPNetworking
 
@@ -32,31 +32,20 @@ static NSMutableArray *tasks;
     return handler;
 }
 
-+(NSMutableArray *)tasks{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-
-        tasks = [[NSMutableArray alloc] init];
-    });
-    return tasks;
++(CCPURLSessionTask *)getOrPostWithType:(httpMethod)httpMethod   WithUrl:(NSString *)url params:(NSDictionary *)params loadingImageArr:(NSMutableArray *)loadingImageArr  toShowView:(UIView *)showView isFullScreen:(BOOL)isFull success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD{
+    return [self baseRequestType:httpMethod url:url params:params loadingImageArr:loadingImageArr toShowView:showView isFullScreen:isFull success:success fail:fail showHUD:showHUD];
 }
 
-+(CCPURLSessionTask *)getOrPostWithType:(httpMethod)httpMethod   WithUrl:(NSString *)url params:(NSDictionary *)params loadingImageArr:(NSMutableArray *)loadingImageArr  toShowView:(UIView *)showView success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD{
++ (CCPURLSessionTask *)baseRequestType:(httpMethod)type url:(NSString *)url params:(NSDictionary *)params  loadingImageArr:(NSMutableArray *)loadingImageArr  toShowView:(UIView *)showView isFullScreen:(BOOL)isFull success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD {
     
-    return [self baseRequestType:httpMethod url:url params:params loadingImageArr:loadingImageArr toShowView:showView success:success fail:fail showHUD:showHUD];
-    
-}
-
-+ (CCPURLSessionTask *)baseRequestType:(httpMethod)type url:(NSString *)url params:(NSDictionary *)params  loadingImageArr:(NSMutableArray *)loadingImageArr  toShowView:(UIView *)showView success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD {
-   
     if (url==nil) {
-       
+        
         return nil;
     }
     
     if (showHUD == YES) {
         
-       [MBProgressHUD showHUDWithImageArr:loadingImageArr andShowView:showView];
+        [MBProgressHUD showHUDWithImageArr:loadingImageArr andShowView:showView isFullScreen:isFull];
     }
     
     //检查地址中是否有中文
@@ -76,7 +65,6 @@ static NSMutableArray *tasks;
                 success(responseObject);
             }
             
-            [[self tasks] removeObject:sessionTask];
             
             if (showHUD==YES) {
                 
@@ -84,17 +72,15 @@ static NSMutableArray *tasks;
             }
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-
+            
             if (fail) {
                 fail(error);
             }
             
-            [[self tasks] removeObject:sessionTask];
-            
             if (showHUD==YES) {
-               
+                
                 [MBProgressHUD dissmissShowView:showView];
-
+                
             }
             
         }];
@@ -109,12 +95,10 @@ static NSMutableArray *tasks;
                 success(responseObject);
             }
             
-            [[self tasks] removeObject:sessionTask];
-            
             if (showHUD==YES) {
                 
                 [MBProgressHUD dissmissShowView:showView];
-            
+                
             }
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -123,7 +107,6 @@ static NSMutableArray *tasks;
                 fail(error);
             }
             
-            [[self tasks] removeObject:sessionTask];
             
             if (showHUD==YES) {
                 
@@ -143,33 +126,113 @@ static NSMutableArray *tasks;
         
     }
     
-    if (sessionTask) {
-        [[self tasks] addObject:sessionTask];
-    }
-    
     return sessionTask;
-    
 }
 
 
-+ (CCPURLSessionTask *)uploadWithImages:(NSArray *)imageArr url:(NSString *)url filename:(NSString *)filename names:(NSArray *)nameArr params:(NSDictionary *)params loadingImageArr:(NSMutableArray *)loadingImageArr toShowView:(UIView *)showView progress:(CCPUploadProgress)progress success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD {
+
+
++(CCPURLSessionTask *)getOrPostWithType:(httpMethod)httpMethod   WithUrl:(NSString *)url params:(NSDictionary *)params animationType:(AnimationType)animationType animationTypeColor:(UIColor *)color isFullScreen:(BOOL)isFull success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD {
     
+    //展示loading
+    UIWindow *currentWindows = [UIApplication sharedApplication].keyWindow;
+    
+    if (color == nil) {
+        color = [UIColor redColor];
+    }
+    
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:(int)animationType tintColor:color size:50.0f];
+    activityIndicatorView.userInteractionEnabled = YES;
+    
+    CGFloat pointY;
+    if (isFull) {
+        pointY = 0.0;
+    } else {
+        pointY = 64.0;
+    }
+    activityIndicatorView.frame = CGRectMake(0.0f, pointY,[UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - pointY);
+    [currentWindows addSubview:activityIndicatorView];
+    
+    if (url==nil) {
+        
+        return nil;
+    }
+    
+    if (showHUD == YES) {
+        [activityIndicatorView startAnimating];
+    }
+    
+    //检查地址中是否有中文
+    NSString *urlStr=[NSURL URLWithString:url]?url:[self strUTF8Encoding:url];
+    AFHTTPSessionManager *manager=[self getAFManager];
+    CCPURLSessionTask *sessionTask=nil;
+    if (httpMethod == GET) {
+        sessionTask = [manager GET:urlStr parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            if (success) {
+                success(responseObject);
+            }
+            if (showHUD==YES) {
+                //取消loading
+                [activityIndicatorView stopAnimating];
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+            if (fail) {
+                fail(error);
+            }
+            if (showHUD==YES) {
+                //取消loading
+                [activityIndicatorView stopAnimating];
+            }
+            
+        }];
+        
+    }else{
+        
+        sessionTask = [manager POST:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            if (success) {
+                success(responseObject);
+            }
+            if (showHUD==YES) {
+                //取消loading
+                [activityIndicatorView stopAnimating];
+            }
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+            if (fail) {
+                fail(error);
+            }
+            if (showHUD==YES) {
+                //取消loading
+                [activityIndicatorView stopAnimating];
+            }
+        }];
+        
+    }
+    return sessionTask;
+}
+
++ (CCPURLSessionTask *)uploadWithImages:(NSArray *)imageArr url:(NSString *)url filename:(NSString *)filename names:(NSArray *)nameArr params:(NSDictionary *)params loadingImageArr:(NSMutableArray *)loadingImageArr toShowView:(UIView *)showView isFullScreen:(BOOL)isFull progress:(CCPUploadProgress)progress success:(CCPResponseSuccess)success fail:(CCPResponseFail)fail showHUD:(BOOL)showHUD {
     
     if (url==nil) {
         return nil;
     }
-    
     if (showHUD==YES) {
         
-        [MBProgressHUD showHUDWithImageArr:loadingImageArr andShowView:showView];
+        [MBProgressHUD showHUDWithImageArr:loadingImageArr andShowView:showView isFullScreen:isFull];
     }
     
     //检查地址中是否有中文
     NSString *urlStr=[NSURL URLWithString:url]?url:[self strUTF8Encoding:url];
     
     AFHTTPSessionManager *manager=[self getAFManager];
-    
-    CCPURLSessionTask *sessionTask = [manager POST:urlStr parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    CCPURLSessionTask *sessionTask=nil;
+    sessionTask = [manager POST:urlStr parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         for (int i = 0; i < imageArr.count; i ++) {
             
@@ -206,8 +269,6 @@ static NSMutableArray *tasks;
             success(responseObject);
         }
         
-        [[self tasks] removeObject:sessionTask];
-        
         if (showHUD==YES) {
             
             [MBProgressHUD dissmissShowView:showView];
@@ -219,8 +280,6 @@ static NSMutableArray *tasks;
             fail(error);
         }
         
-        [[self tasks] removeObject:sessionTask];
-        
         if (showHUD==YES) {
             
             [MBProgressHUD dissmissShowView:showView];
@@ -228,25 +287,17 @@ static NSMutableArray *tasks;
         
     }];
     
-    if (sessionTask) {
-        [[self tasks] addObject:sessionTask];
-    }
-    
     return sessionTask;
     
 }
 
 
-+ (CCPURLSessionTask *)downloadWithUrl:(NSString *)url saveToPath:(NSString *)saveToPath loadingImageArr:(NSMutableArray *)loadingImageArr progress:(CCPDownloadProgress )progressBlock toShowView:(UIView *)showView success:(CCPResponseSuccess )success failure:(CCPResponseFail )fail showHUD:(BOOL)showHUD{
-    
++ (CCPURLSessionTask *)downloadWithUrl:(NSString *)url saveToPath:(NSString *)saveToPath loadingImageArr:(NSMutableArray *)loadingImageArr progress:(CCPDownloadProgress )progressBlock toShowView:(UIView *)showView isFullScreen:(BOOL)isFull success:(CCPResponseSuccess )success failure:(CCPResponseFail )fail showHUD:(BOOL)showHUD{
     if (url==nil) {
         return nil;
     }
-    
     if (showHUD==YES) {
-        
-     [MBProgressHUD showHUDWithImageArr:loadingImageArr andShowView:showView];
-    
+        [MBProgressHUD showHUDWithImageArr:loadingImageArr andShowView:showView isFullScreen:isFull];
     }
     
     NSURLRequest *downloadRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
@@ -255,7 +306,7 @@ static NSMutableArray *tasks;
     CCPURLSessionTask *sessionTask = nil;
     
     sessionTask = [manager downloadTaskWithRequest:downloadRequest progress:^(NSProgress * _Nonnull downloadProgress) {
-       
+        
         CCPLog(@"下载进度--%.1f",1.0 * downloadProgress.completedUnitCount/downloadProgress.totalUnitCount);
         
         //回到主线程刷新UI
@@ -280,10 +331,8 @@ static NSMutableArray *tasks;
         
     } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
         
-        [[self tasks] removeObject:sessionTask];
-        
         if (error == nil) {
-           
+            
             if (success) {
                 success([filePath path]);//返回完整路径
             }
@@ -306,17 +355,10 @@ static NSMutableArray *tasks;
     
     //开始下载
     [sessionTask resume];
-    //
-    if (sessionTask) {
-        
-        [[self tasks] addObject:sessionTask];
-        
-    }
     
     return sessionTask;
     
 }
-
 
 
 + (AFHTTPSessionManager *)getAFManager{
@@ -332,15 +374,15 @@ static NSMutableArray *tasks;
         httpManager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
         httpManager.requestSerializer.timeoutInterval= 30;
         httpManager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",
-                                                                                  @"text/html",
-                                                                                  @"text/json",
-                                                                                  @"text/plain",
-                                                                                  @"text/javascript",
-                                                                                  @"text/xml",
-                                                                                  @"image/*"]];
+                                                                                      @"text/html",
+                                                                                      @"text/json",
+                                                                                      @"text/plain",
+                                                                                      @"text/javascript",
+                                                                                      @"text/xml",
+                                                                                      @"image/*"]];
     });
     
-   return httpManager;
+    return httpManager;
 }
 
 #pragma makr - 开始监听程序在运行中的网络连接变化
@@ -350,7 +392,7 @@ static NSMutableArray *tasks;
     AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
     // 2.设置网络状态改变后的处理
     [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-    // 当网络状态改变了, 就会调用这个block
+        // 当网络状态改变了, 就会调用这个block
         switch (status)
         {
             case AFNetworkReachabilityStatusUnknown: // 未知网络
@@ -360,13 +402,13 @@ static NSMutableArray *tasks;
                 break;
                 
             case AFNetworkReachabilityStatusNotReachable: // 没有网络(断网)
-
+                
                 [CCPNetworking sharedCCPNetworking].networkStats=StatusNotReachable;
                 
                 break;
                 
             case AFNetworkReachabilityStatusReachableViaWWAN: // 手机自带网络
-
+                
                 [CCPNetworking sharedCCPNetworking].networkStats=StatusReachableViaWWAN;
                 
                 break;
@@ -414,17 +456,20 @@ static NSMutableArray *tasks;
     if ([conn currentReachabilityStatus] == NotReachable) {
         
         return NO;
-    
+        
     } else {
         
         return YES;
     }
 }
 
-
 + (NSString *)strUTF8Encoding:(NSString *)str{
-
-    return [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    if (([UIDevice currentDevice].systemVersion.floatValue >= 9.0f)) {
+        return [str stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    } else {
+        return [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    }
 }
 
 - (void)dealloc

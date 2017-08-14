@@ -52,14 +52,35 @@
 }
 
 
-
 static NSString * const CCPCell = @"CCPCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.CCPTableView.delegate = self;
+    self.CCPTableView.dataSource = self;
+    self.title = @"首页";
+    [self.CCPTableView registerNib:[UINib nibWithNibName:@"CCPTableViewCell" bundle:nil] forCellReuseIdentifier:CCPCell];
+    [self aboutDownload];
+    
+    
     //判断是否有网络链接
     if (![CCPNetworking isHaveNetwork]) {
         [MBProgressHUD showInformation:@"网络无连接，请检查网络" toView:self.view.window andAfterDelay:3.0];
     }
+    NSMutableArray *imageArr = [NSMutableArray array];
+    for (int i = 1; i < 12; i ++ ) {
+        [imageArr addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_1_%d",i]]];
+    }
+    UIImageView *showImageView = [[UIImageView alloc] init];
+    showImageView.animationImages = imageArr;
+    [showImageView setAnimationRepeatCount:0];
+    [showImageView setAnimationDuration:(imageArr.count + 1) * 0.075];
+    [showImageView startAnimating];
+    [MBProgressHUD showCustomview:showImageView andTextString:@"数据加载中..." toView:self.view.window andAfterDelay:3.0];
+}
+
+//下载路径
+- (void) aboutDownload {
+
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下载" style:UIBarButtonItemStylePlain target:self action:@selector(clickTheButton)];
     // 创建目标文件
     NSFileManager *fileManager = [[NSFileManager alloc]init];
@@ -73,39 +94,16 @@ static NSString * const CCPCell = @"CCPCell";
     }
     
     self.filePathString = createPath;
-    
-    [self.CCPTableView registerNib:[UINib nibWithNibName:@"CCPTableViewCell" bundle:nil] forCellReuseIdentifier:CCPCell];
-    self.title = @"首页";
-    self.CCPTableView.delegate = self;
-    self.CCPTableView.dataSource = self;
-    NSMutableArray *imageArr = [NSMutableArray array];
-    for (int i = 1; i < 12; i ++ ) {
-        
-        [imageArr addObject:[UIImage imageNamed:[NSString stringWithFormat:@"loading_1_%d",i]]];
-    }
-    UIImageView *showImageView = [[UIImageView alloc] init];
-    showImageView.animationImages = imageArr;
-    [showImageView setAnimationRepeatCount:0];
-    [showImageView setAnimationDuration:(imageArr.count + 1) * 0.075];
-    [showImageView startAnimating];
-    [MBProgressHUD showCustomview:showImageView andTextString:@"数据加载中..." toView:self.view.window andAfterDelay:3.0];
 }
 
 //下载
 - (void) clickTheButton {
-    
     NSString *pathStr = [NSString stringWithFormat:@"下载完成文件路径---%@",self.filePathString];
-    
     [CCPNetworking downloadWithUrl:@"http://106.2.184.232:9999/bla.gtimg.com/qqlive/201612/BRDS_20161215163219457.mp4" saveToPath:self.filePathString loadingImageArr:nil progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
-        
-    } toShowView:self.view success:^(id response) {
-        
+    } toShowView:self.view isFullScreen:YES success:^(id response) {
         [MBProgressHUD showInformation:pathStr toView:self.view andAfterDelay:2.0];
-        
     } failure:^(NSError *error) {
-        
     } showHUD:NO];
-    
 }
 
 #pragma mark - tableView DataSource
@@ -126,8 +124,6 @@ static NSString * const CCPCell = @"CCPCell";
 }
 
 #pragma mark - tableView Delegate
-
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     CCPTableViewController *VC = [[CCPTableViewController alloc] init];
@@ -136,25 +132,19 @@ static NSString * const CCPCell = @"CCPCell";
     
 }
 
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return 205;
 }
 
 - (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     CATransform3D rotation;
-    
     rotation = CATransform3DMakeRotation( (90.0*M_PI)/180, 0.0, 0.7, 0.4);
     rotation.m34 = 1.0/ -600;
     cell.layer.transform = rotation;
     cell.layer.shadowColor = [[UIColor blackColor]CGColor];
     cell.layer.shadowOffset = CGSizeMake(10, 10);
     cell.alpha = 0;
-   
-//    cell.layer.anchorPoint = CGPointMake(0, 0.5);
-    
     [UIView beginAnimations:@"rotation" context:NULL];
     [UIView setAnimationDuration:0.8];
     cell.layer.transform = CATransform3DIdentity;
