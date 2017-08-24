@@ -185,7 +185,6 @@ if (view == nil) view = [UIApplication sharedApplication].keyWindow;
  *  @param animationType    DGActivityIndicatorView 类型的指示器样式 33种
  *  @param color            指示器颜色
  *  @param isFull           是否覆盖全屏
- *  @param isSecret           是否加密
  *  @param success          请求成功返回数据
  *  @param fail             请求失败
  *  @param showHUD          是否显示HUD
