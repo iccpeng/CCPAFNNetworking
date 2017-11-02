@@ -227,7 +227,6 @@ if (view == nil) view = [UIApplication sharedApplication].keyWindow;
  */
 + (CCPURLSessionTask *)downloadWithUrl:(NSString *)url saveToPath:(NSString *)saveToPath loadingImageArr:(NSMutableArray *)loadingImageArr progress:(CCPDownloadProgress )progressBlock toShowView:(UIView *)showView isFullScreen:(BOOL)isFull success:(CCPResponseSuccess )success failure:(CCPResponseFail )fail showHUD:(BOOL)showHUD;
 ```
-注：具体方法实现步骤不再在这里进行展示，浪费大家的时间，DEMO中已经做了很多标注，大家可以下载DEMO查阅。
 
 ### DEMO 使用示例
 ```
